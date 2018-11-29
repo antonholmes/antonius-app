@@ -1,7 +1,34 @@
 import React from 'react';
 import { Platform, StatusBar, StyleSheet, View } from 'react-native';
 import { AppLoading, Asset, Font, Icon } from 'expo';
-import AppNavigator from './navigation/AppNavigator';
+// import AppNavigator from './navigation/AppNavigator';
+import { createStackNavigator } from 'react-navigation';
+import Home from './components/Home';
+import Game from './components/Game';
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+});
+
+const RootNavigator = createStackNavigator({
+  Main: {
+    screen: Home,
+    navigationOptions: {
+      headerTitle: 'Home',
+    },
+  },
+  Game: {
+    screen: Game,
+    navigationOptions: {
+      headerTitle: 'Planet Emoji',
+    },
+  },
+});
 
 export default class App extends React.Component {
   state = {
@@ -21,7 +48,7 @@ export default class App extends React.Component {
       return (
         <View style={styles.container}>
           {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
-          <AppNavigator />
+          <RootNavigator />
         </View>
       );
     }
@@ -53,10 +80,3 @@ export default class App extends React.Component {
     this.setState({ isLoadingComplete: true });
   };
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-  },
-});
